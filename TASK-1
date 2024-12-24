@@ -1,1 +1,204 @@
+**[USEING PANDAS]**
 
+# Import necessary library
+import pandas as pd
+
+# Load the dataset
+data = pd.read_csv('final_cleaned_twitter_dataset.csv')
+
+# Step 1: Data Cleaning
+# Drop columns with all NaN values
+data_cleaned = data.dropna(axis=1, how='all')
+
+# Step 2: Basic Dataset Information
+print("Dataset Info:\n")
+data_cleaned.info()
+
+print("\nSummary Statistics:\n")
+print(data_cleaned.describe(include='all'))
+
+# Step 3: Checking for Null Values
+null_counts = data_cleaned.isnull().sum()
+print("\nNull Value Counts:\n", null_counts)
+
+# Step 4: Exploring Distributions
+# Distribution of Retweets
+print("\nRetweets Distribution:\n")
+print(data_cleaned['Retweets'].value_counts(bins=10, sort=False))
+
+# Distribution of Likes
+print("\nLikes Distribution:\n")
+print(data_cleaned['Likes'].value_counts(bins=10, sort=False))
+
+# Step 5: Correlation Analysis
+# Compute correlation matrix
+correlation_matrix = data_cleaned[['Retweets', 'Likes']].corr()
+print("\nCorrelation Matrix:\n", correlation_matrix)
+
+# Step 6: Identifying Outliers
+# Detect outliers in Retweets
+q1_retweets = data_cleaned['Retweets'].quantile(0.25)
+q3_retweets = data_cleaned['Retweets'].quantile(0.75)
+iqr_retweets = q3_retweets - q1_retweets
+outliers_retweets = data_cleaned[(data_cleaned['Retweets'] < (q1_retweets - 1.5 * iqr_retweets)) |
+                                 (data_cleaned['Retweets'] > (q3_retweets + 1.5 * iqr_retweets))]
+
+print("\nOutliers in Retweets:\n")
+print(outliers_retweets[['Retweets']])
+
+# Detect outliers in Likes
+q1_likes = data_cleaned['Likes'].quantile(0.25)
+q3_likes = data_cleaned['Likes'].quantile(0.75)
+iqr_likes = q3_likes - q1_likes
+outliers_likes = data_cleaned[(data_cleaned['Likes'] < (q1_likes - 1.5 * iqr_likes)) |
+                              (data_cleaned['Likes'] > (q3_likes + 1.5 * iqr_likes))]
+
+print("\nOutliers in Likes:\n")
+print(outliers_likes[['Likes']])
+
+# Step 7: Time-Based Analysis
+# Convert Timestamp to datetime format
+data_cleaned['Timestamp'] = pd.to_datetime(data_cleaned['Timestamp'], errors='coerce')
+
+# Extract month from Timestamp and count occurrences
+monthly_activity = data_cleaned['Timestamp'].dt.month.value_counts().sort_index()
+print("\nMonthly Activity:\n")
+print(monthly_activity)
+
+**[USEING NUMPY]**
+
+import numpy as np
+
+data = np.array([
+    [101, 501, 152, 45, 23],
+    [102, 502, 45, 10, 8],
+    [103, 503, 87, 20, 15],
+    [104, 504, 22, 5, 3],
+    [105, 501, 230, 75, 30],
+    [106, 505, 34, 8, 6],
+    [107, 506, 180, 60, 25],
+    [108, 507, 50, 12, 9],
+    [109, 508, 29, 5, 4],
+    [110, 503, 120, 40, 20],
+    [111, 509, 67, 18, 11],
+    [112, 510, 15, 4, 3],
+    [113, 511, 33, 7, 5],
+    [114, 512, 200, 65, 35],
+    [115, 513, 43, 9, 6],
+    [116, 514, 90, 25, 12],
+    [117, 515, 28, 6, 4],
+    [118, 516, 105, 32, 18],
+    [119, 517, 54, 14, 10],
+    [120, 518, 20, 4, 3],
+    [121, 519, 143, 50, 24],
+    [122, 520, 67, 15, 9],
+    [123, 521, 190, 58, 30],
+    [124, 522, 240, 80, 40],
+    [125, 523, 75, 20, 15],
+    [126, 524, 100, 30, 22],
+    [127, 525, 25, 5, 4],
+    [128, 526, 155, 45, 25],
+    [129, 527, 40, 8, 6],
+    [130, 528, 60, 12, 10]
+])
+
+# 1. General Characteristics
+total_rows, total_columns = data.shape
+print(f"Total Rows: {total_rows}, Total Columns: {total_columns}")
+
+# 2. Distributions
+likes = data[:, 2]
+retweets = data[:, 3]
+replies = data[:, 4]
+
+likes_mean = np.mean(likes)
+likes_median = np.median(likes)
+likes_std = np.std(likes)
+
+retweets_mean = np.mean(retweets)
+retweets_median = np.median(retweets)
+retweets_std = np.std(retweets)
+
+replies_mean = np.mean(replies)
+replies_median = np.median(replies)
+replies_std = np.std(replies)
+
+print("\nLikes Distribution:")
+print(f"Mean: {likes_mean}, Median: {likes_median}, Std Dev: {likes_std}")
+print("\nRetweets Distribution:")
+print(f"Mean: {retweets_mean}, Median: {retweets_median}, Std Dev: {retweets_std}")
+print("\nReplies Distribution:")
+print(f"Mean: {replies_mean}, Median: {replies_median}, Std Dev: {replies_std}")
+
+# 3. Correlations
+correlation_matrix = np.corrcoef(data[:, 2:].T)
+print("\nCorrelation Matrix (Likes, Retweets, Replies):\n", correlation_matrix)
+
+# 4. Outliers (using 1.5*IQR rule)
+def find_outliers(data_column):
+    q1 = np.percentile(data_column, 25)
+    q3 = np.percentile(data_column, 75)
+    iqr = q3 - q1
+    lower_bound = q1 - 1.5 * iqr
+    upper_bound = q3 + 1.5 * iqr
+    outliers = data_column[(data_column < lower_bound) | (data_column > upper_bound)]
+    return outliers
+
+likes_outliers = find_outliers(likes)
+retweets_outliers = find_outliers(retweets)
+replies_outliers = find_outliers(replies)
+
+print("\nOutliers:")
+print(f"Likes: {likes_outliers}")
+print(f"Retweets: {retweets_outliers}")
+print(f"Replies: {replies_outliers}")
+
+**[USEING MATPLOTLIB]**
+
+import matplotlib.pyplot as plt
+import csv
+with open('twitter_dataset.csv', 'r') as file:
+ reader = csv.reader(file)
+ headers = next(reader)
+ data = list(reader)
+print(headers)
+print(data[:5])
+retweets_index = headers.index('Retweets')
+likes_index = headers.index('Likes')
+retweets = [float(row[retweets_index]) for row in data]
+likes = [float(row[likes_index]) for row in data]
+plt.figure(figsize=(10, 6))
+plt.hist(retweets, bins=10, color='blue', edgecolor='black', alpha=0.7)
+plt.title('Distribution of Retweets', fontsize=16)
+plt.xlabel('Number of Retweets', fontsize=14)
+plt.ylabel('Frequency', fontsize=14)
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.show()
+plt.figure(figsize=(10, 6))
+plt.hist(likes, bins=10, color='green', edgecolor='black', alpha=0.7)
+plt.title('Distribution of Likes', fontsize=16)
+plt.xlabel('Number of Likes', fontsize=14)
+plt.ylabel('Frequency', fontsize=14)
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.show()
+plt.figure(figsize=(10, 6))
+plt.scatter(retweets, likes, color='purple', alpha=0.6)
+plt.title('Scatter Plot: Retweets vs Likes', fontsize=16)
+plt.xlabel('Number of Retweets', fontsize=14)
+plt.ylabel('Number of Likes', fontsize=14)
+plt.grid(linestyle='--', alpha=0.7)
+plt.show()
+mean_retweets = sum(retweets) / len(retweets)
+mean_likes = sum(likes) / len(likes)
+covariance = sum((r - mean_retweets) * (l - mean_likes) for r, l in zip(retweets, likes)) / len(retweets)
+std_dev_retweets = (sum((r - mean_retweets) ** 2 for r in retweets) / len(retweets)) ** 0.5
+std_dev_likes = (sum((l - mean_likes) ** 2 for l in likes) / len(likes)) ** 0.5
+correlation_coefficient = covariance / (std_dev_retweets * std_dev_likes)
+correlation_matrix = [[1.0, correlation_coefficient], [correlation_coefficient, 1.0]]
+plt.figure(figsize=(8, 6))
+plt.imshow(correlation_matrix, cmap='coolwarm', interpolation='nearest')
+plt.colorbar(label='Correlation Coefficient')
+plt.title('Heatmap of Correlation', fontsize=16)
+plt.xticks(ticks=[0, 1], labels=['Retweets', 'Likes'], fontsize=12)
+plt.yticks(ticks=[0, 1], labels=['Retweets', 'Likes'], fontsize=12)
+plt.show()
