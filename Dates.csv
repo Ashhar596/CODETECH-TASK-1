@@ -1,0 +1,31 @@
+Tweet ID,User ID,Tweet Content,Likes,Retweets,Replies,Sentiment,Date
+101,501,    Just launched a new product!,152,45,23,        Positive,12/9/2024
+102,502,    This is a bad experience.,45,10,8,        Negative,12/8/2024
+103,503,    Good morning everyone!,87,20,15,        Positive,12/2/2024
+104,504,"    Neutral day, nothing new.",22,5,3,        Neutral,    19/12/2024
+105,501,    Our sales have doubled!,230,75,30,        Positive,12/8/2024
+106,505,    Disappointed with the service.,34,8,6,        Negative,12/7/2024
+107,506,    Loving the new update!,180,60,25,        Positive,12/2/2024
+108,507,    Any suggestions for good movies?,50,12,9,        Neutral, 19/12/2024
+109,508,    Had a terrible day today.,29,5,4,        Negative,12/8/2024
+110,503,"    Stay positive, folks!",120,40,20,        Positive,12/2/2024
+111,509,    Just baked cookies at home.,67,18,11,        Positive,12/7/2024
+112,510,    I miss the old days...,15,4,3,        Negative,12/8/2024
+113,511,    Why is this so complicated?,33,7,5,        Negative,12/9/2024
+114,512,    Celebrating 5 years of success!,200,65,35,        Positive,12/2/2024
+115,513,    What's your favorite color?,43,9,6,        Neutral,    17/12/2024
+116,514,    I can't believe this worked!,90,25,12,        Positive,12/8/2024
+117,515,    Bad service at the restaurant.,28,6,4,        Negative,12/9/2024
+118,516,    Feeling thankful today.,105,32,18,        Positive,12/2/2024
+119,517,    Any good book recommendations?,54,14,10,        Neutral,    19/12/2024
+120,518,    Traffic was terrible today!,20,4,3,        Negative,12/8/2024
+121,519,    The new policy is amazing.,143,50,24,        Positive,12/7/2024
+122,520,    Need coffee ASAP!,67,15,9,        Neutral,   19/12/ 2024
+123,521,    Our new product is live now!,190,58,30,        Positive,12/12/2024
+124,522,    Just hit 10k followers!,240,80,40,        Positive,12/9/2024
+125,523,    Movie night recommendations?,75,20,15,        Neutral,    18/12/2024
+126,524,    Can't wait for the weekend!,100,30,22,        Positive,12/9/2024
+127,525,    Worst experience ever!,25,5,4,        Negative,12/2/2024
+128,526,    Grateful for my team.,155,45,25,        Positive,12/7/2024
+129,527,    Too tired to function.,40,8,6,        Neutral,    18/12/2024
+130,528,    Any tips for staying focused?,60,12,10,        Neutral,    19/12/2024
